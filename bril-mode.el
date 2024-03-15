@@ -84,7 +84,7 @@
     (if (string= ":" tok)
         (save-match-data
           (if (not (looking-back "\\_<\\.[a-zA-Z0-9.]+" (line-beginning-position)))
-              ""
+              "ignore"
             (goto-char (match-beginning 0))
             ":"))
       tok)))
