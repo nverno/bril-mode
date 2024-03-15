@@ -1,0 +1,44 @@
+# ARGS: ../linking ../../benchmarks/core
+from "link_ops.bril" import @main as @inner_main;
+from "nested.bril" import @main as @nested_main;
+
+@main() {
+  c1: char = const '6';  # characters
+  c2: char = const '\a'; # escape codes
+  b1: bool = ceq c1 c2;
+
+  # Floating point
+  v0: float = const 1.1;
+  v1: float = const .02;
+  v2: float = const 0.3;
+  v3: float = fadd v0 v1;
+  v4: float = fmul v2 v2;
+  v5: float = const 1.;
+  v6: float = const 1e6;
+  # v7: float = const 1E-6;
+  v8: float = const -1E+6;
+  v9: float = const +.11e12;
+
+  # Memory
+  c1: int = const 1;
+  v0: ptr<int> = alloc c1;
+  x1: int = const 3;
+  print x1;
+  store v0 x1;
+  x1: int = const 4;
+  print x1;
+  x1: int = load v0;
+  print x1;
+  free v0;
+  v1: ptr<ptr<bool>> = alloc c1;
+  vx: ptr<bool> = alloc c1;
+  store v1 vx;
+  ab: ptr<bool> = load v1;
+  print ab;
+  v2: bool = const false;
+  store vx v2;
+  v3: ptr<bool> = load v1;
+  print v3;
+  free vx;
+  free v1;
+}
